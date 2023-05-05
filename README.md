@@ -1,2 +1,0 @@
-# blog
-Learning for creation
