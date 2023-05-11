@@ -1,0 +1,65 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.titleContainer {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: var(--nav-height) 0 0 0;
+  text-align: center;
+  padding: 3.5rem 0;
+
+  .title {
+    position: relative;
+    display: inline-block;
+    font-size: 1.5rem;
+
+    &::after {
+      content: '';
+      width: 100%;
+      height: 1.75rem;
+      border-left: 2px solid #000;
+      background-color: #fff;
+      position: absolute;
+      left: 0;
+      animation: coding 2s steps(calc(31)), stop 1s steps(2) 2s infinite;
+    }
+  }
+}
+
+@keyframes star {
+  0% {
+    border-color: #fff;
+  }
+  100% {
+    border-color: #000;
+  }
+}
+
+@keyframes coding {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+    width: 2px;
+  }
+}
+
+@keyframes stop {
+  0% {
+    border-color: #fff;
+    left: 100%;
+    width: 2px;
+  }
+  100% {
+    border-color: #000;
+    left: 100%;
+    width: 2px;
+  }
+}

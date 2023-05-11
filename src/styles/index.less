@@ -1,0 +1,81 @@
+:root {
+  --nav-height: 5rem;
+  --scrollbar-width: 0;
+  --scrollbar-height: 8px;
+  --scrollbar-thumb-bgcolor: #999999;
+  --scrollbar-thumb-border-radius: 10px;
+  --scrollbar-thumb-hover-bgcolor: #828282;
+  --scrollbar-thumb-hover-border-radius: 10px;
+  --scrollbar-thumb-active-bgcolor: #757575;
+  --scrollbar-thumb-active-border-radius: 10px;
+}
+
+body {
+  margin: 0;
+  font: 300 16px Consolas, Monaco, Tahoma, 'Helvetica Neue', Helvetica, 'Lucida Grande',
+    'Lantinghei SC', 'Open Sans', 'Microsoft YaHei', sans-serif;
+}
+
+:global {
+  .scrollbar {
+    &::-webkit-scrollbar {
+      width: var(--scrollbar-width);
+      height: var(--scrollbar-height);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb-bgcolor);
+      border-radius: var(--scrollbar-thumb-border-radius);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--scrollbar-thumb-hover-bgcolor);
+      border-radius: var(--scrollbar-thumb-hover-border-radius);
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background: var(--scrollbar-thumb-active-bgcolor);
+      border-radius: var(--scrollbar-thumb-active-border-radius);
+    }
+  }
+}
+
+@media (max-width: 1920px) {
+  :root {
+    --gap: 3;
+  }
+
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1500px) {
+  :root {
+    --gap: 2;
+  }
+
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --gap: 1;
+  }
+
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --gap: 0.5;
+  }
+
+  html {
+    font-size: 12px;
+  }
+}
