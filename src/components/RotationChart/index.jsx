@@ -1,7 +1,7 @@
-import React from 'react'
-import { Carousel } from 'antd'
+import React from 'react';
+import { Carousel } from 'antd';
 
-import styles from './index.less'
+import styles from './index.less';
 
 function RotationChart({ charts = [] }) {
   return (
@@ -17,7 +17,7 @@ function RotationChart({ charts = [] }) {
         </div>
       ))}
     </Carousel>
-  )
+  );
 }
 
-export default RotationChart
+export default RotationChart;

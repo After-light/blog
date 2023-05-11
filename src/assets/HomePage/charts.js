@@ -1,8 +1,8 @@
-import '@@/images/wisdom.jpg'
-import '@@/images/brave.jpg'
-import '@@/images/love.jpg'
-import '@@/images/relax.jpg'
-import '@@/images/enjoy.jpg'
+import '@@/images/wisdom.jpg';
+import '@@/images/brave.jpg';
+import '@@/images/love.jpg';
+import '@@/images/relax.jpg';
+import '@@/images/enjoy.jpg';
 
 export default [
   {
@@ -25,4 +25,4 @@ export default [
     key: 'enjoy',
     content: '/static/images/enjoy.jpg',
   },
-]
+];

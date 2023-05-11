@@ -1,33 +1,33 @@
-const path = require("path");
-const ESLintWebpackPlugin = require("eslint-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const TerserWebpackPlugin = require("terser-webpack-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const InterpolateHtmlPlugin = require("interpolate-html-plugin");
+const path = require('path');
+const ESLintWebpackPlugin = require('eslint-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 
 // 需要通过 cross-env 定义环境变量
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === 'production';
 
 const getStyleLoaders = (preProcessor) => {
   return [
-    isProduction ? MiniCssExtractPlugin.loader : "style-loader",
+    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
     {
-      loader: "css-loader",
+      loader: 'css-loader',
       options: {
         importLoaders: 1,
         modules: {
-          localIdentName: "[local]_[hash:base64:10]",
+          localIdentName: '[local]_[hash:base64:10]',
         },
       },
     },
     {
-      loader: "postcss-loader",
+      loader: 'postcss-loader',
       options: {
         postcssOptions: {
           plugins: [
-            "postcss-preset-env", // 能解决大多数样式兼容性问题
+            'postcss-preset-env', // 能解决大多数样式兼容性问题
           ],
         },
       },
@@ -37,16 +37,14 @@ const getStyleLoaders = (preProcessor) => {
 };
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    path: isProduction ? path.resolve(__dirname, "../dist") : undefined,
-    filename: isProduction
-      ? "static/js/[name].[contenthash:10].js"
-      : "static/js/[name].js",
+    path: isProduction ? path.resolve(__dirname, '../dist') : undefined,
+    filename: isProduction ? 'static/js/[name].[contenthash:10].js' : 'static/js/[name].js',
     chunkFilename: isProduction
-      ? "static/js/[name].[contenthash:10].chunk.js"
-      : "static/js/[name].chunk.js",
-    publicPath: "/",
+      ? 'static/js/[name].[contenthash:10].chunk.js'
+      : 'static/js/[name].chunk.js',
+    publicPath: '/',
     clean: true,
   },
   module: {
@@ -61,42 +59,42 @@ module.exports = {
           },
           {
             test: /\.less$/,
-            use: getStyleLoaders("less-loader"),
+            use: getStyleLoaders('less-loader'),
           },
           {
             test: /\.s[ac]ss$/,
-            use: getStyleLoaders("sass-loader"),
+            use: getStyleLoaders('sass-loader'),
           },
           {
             test: /\.styl$/,
-            use: getStyleLoaders("stylus-loader"),
+            use: getStyleLoaders('stylus-loader'),
           },
           {
             test: /\.(png|jpe?g|gif|svg)$/,
-            type: "asset",
+            type: 'asset',
             parser: {
               dataUrlCondition: {
                 maxSize: 8192,
               },
             },
             generator: {
-              filename: "static/images/[name][ext]",
+              filename: 'static/images/[name][ext]',
             },
           },
           {
             test: /\.(ttf|woff2?)$/,
-            type: "asset/resource",
+            type: 'asset/resource',
           },
           {
             test: /\.(jsx|js)$/,
-            include: path.resolve(__dirname, "../src"),
-            loader: "babel-loader",
+            include: path.resolve(__dirname, '../src'),
+            loader: 'babel-loader',
             options: {
               cacheDirectory: true, // 开启babel编译缓存
               cacheCompression: false, // 缓存文件不要压缩
               plugins: [
                 // "@babel/plugin-transform-runtime",  // presets中包含了
-                !isProduction && "react-refresh/babel",
+                !isProduction && 'react-refresh/babel',
               ].filter(Boolean),
             },
           },
@@ -106,25 +104,22 @@ module.exports = {
   },
   plugins: [
     new ESLintWebpackPlugin({
-      extensions: [".js", ".jsx"],
-      context: path.resolve(__dirname, "../src"),
-      exclude: "node_modules",
+      extensions: ['.js', '.jsx'],
+      context: path.resolve(__dirname, '../src'),
+      exclude: 'node_modules',
       cache: true,
-      cacheLocation: path.resolve(
-        __dirname,
-        "../node_modules/.cache/.eslintcache"
-      ),
+      cacheLocation: path.resolve(__dirname, '../node_modules/.cache/.eslintcache'),
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "../public/index.html"),
+      template: path.resolve(__dirname, '../public/index.html'),
     }),
     new InterpolateHtmlPlugin({
-      PUBLIC_URL: "public",
+      PUBLIC_URL: 'public',
     }),
     isProduction &&
       new MiniCssExtractPlugin({
-        filename: "static/css/[name].[contenthash:10].css",
-        chunkFilename: "static/css/[name].[contenthash:10].chunk.css",
+        filename: 'static/css/[name].[contenthash:10].css',
+        chunkFilename: 'static/css/[name].[contenthash:10].chunk.css',
       }),
     !isProduction && new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),
@@ -139,7 +134,7 @@ module.exports = {
     ],
     // 代码分割配置
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       // 其他都用默认值
     },
     runtimeChunk: {
@@ -147,16 +142,16 @@ module.exports = {
     },
   },
   resolve: {
-    extensions: [".jsx", ".js", ".json"],
+    extensions: ['.jsx', '.js', '.json'],
   },
   devServer: {
     open: true,
-    host: "localhost",
+    host: 'localhost',
     port: 3000,
     hot: true,
     compress: true,
     historyApiFallback: true, // 解决路由404
   },
-  mode: isProduction ? "production" : "development",
-  devtool: isProduction ? "source-map" : "cheap-module-source-map",
+  mode: isProduction ? 'production' : 'development',
+  devtool: isProduction ? 'source-map' : 'cheap-module-source-map',
 };

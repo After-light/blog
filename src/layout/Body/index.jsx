@@ -1,21 +1,22 @@
-import React from 'react'
-import asyncComponent from '@@/decorator/asyncComponent'
-import { Routes, Route } from 'react-router-dom'
+import React from 'react';
+import asyncComponent from '@@/decorator/asyncComponent';
+import { Routes, Route } from 'react-router-dom';
 
-import BodyWrapper from '../BodyWrapper'
-import BodyWrapperHeadless from '../BodyWrapperHeadless'
+import BodyWrapper from '../BodyWrapper';
+import BodyWrapperHeadless from '../BodyWrapperHeadless';
+import Footer from '../Footer';
 
-import styles from './index.less'
+import styles from './index.less';
 
 function Body({ navList }) {
   const getLayoutWrapper = (mode) =>
     ({
       headMode: BodyWrapper,
       headlessMode: BodyWrapperHeadless,
-    }[mode])
+    }[mode]);
 
   const renderBody = ({ key, href, mode, component }) => {
-    const LayoutWrapper = getLayoutWrapper(mode)
+    const LayoutWrapper = getLayoutWrapper(mode);
 
     return (
       <Route
@@ -23,14 +24,15 @@ function Body({ navList }) {
         path={href}
         element={<LayoutWrapper>{asyncComponent(component)}</LayoutWrapper>}
       />
-    )
-  }
+    );
+  };
 
   return (
     <div className={styles.body}>
       <Routes>{navList.map(renderBody)}</Routes>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default Body
+export default Body;

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import classnames from "classnames";
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import classnames from 'classnames';
 
-import { pathToKey } from "./utils";
+import { pathToKey } from './utils';
 
-import styles from "./index.less";
+import styles from './index.less';
 
 function NavigatorBar({ navList }) {
   const location = useLocation();

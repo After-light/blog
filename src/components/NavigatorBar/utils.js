@@ -1,3 +1,3 @@
 export const pathToKey = (pathName) => {
-  return (pathName.split("/") || []).filter((key) => key).join("-");
+  return (pathName.split('/') || []).filter((key) => key).join('-');
 };

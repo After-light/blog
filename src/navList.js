@@ -42,4 +42,4 @@ export default [
     mode: 'headlessMode',
     component: () => import(/* webpackChunkName: 'FriendLink' */ '@@/assets/FriendLink'),
   },
-]
+];

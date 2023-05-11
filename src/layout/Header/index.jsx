@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import NavigatorBar from '@@/components/NavigatorBar'
+import NavigatorBar from '@@/components/NavigatorBar';
 
-import styles from './index.less'
+import styles from './index.less';
 
 function Header({ navList }) {
   return (
@@ -11,7 +11,7 @@ function Header({ navList }) {
         <NavigatorBar navList={navList} />
       </div>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;

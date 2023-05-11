@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./index.less";
+import styles from './index.less';
 
 function BodyWrapperHeadless({ children }) {
   return <div className={styles.bodyWrapperHeadless}>{children}</div>;
