@@ -1,6 +1,7 @@
 import React from 'react';
-import asyncComponent from '@@/decorator/asyncComponent';
+import asyncComponent from '@@share/decorator/asyncComponent';
 import { Routes, Route } from 'react-router-dom';
+import classnames from 'classnames';
 
 import BodyWrapper from '../BodyWrapper';
 import BodyWrapperHeadless from '../BodyWrapperHeadless';
@@ -28,7 +29,7 @@ function Body({ navList }) {
   };
 
   return (
-    <div className={styles.body}>
+    <div className={classnames(styles.body, 'scrollbar')}>
       <Routes>{navList.map(renderBody)}</Routes>
       <Footer />
     </div>

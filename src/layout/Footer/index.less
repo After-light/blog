@@ -1,14 +1,23 @@
 .footer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  padding: 1rem 0 2.5rem 0;
-  background: linear-gradient(to top, #999999, #ffffff);
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 1rem 0;
+  background: linear-gradient(to top, #e9ebec 0%, #e9ebec 60%, #ffffff);
+}
 
-  .netInfo {
-    line-height: 1.5;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.netInfo > * {
+  margin-right: 8px;
+}
+
+.myWeChatWrapper {
+  display: flex;
+  flex-direction: column;
+
+  > img {
+    max-width: 6.25rem;
+    margin-bottom: 5px;
   }
 }

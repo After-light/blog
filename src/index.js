@@ -13,7 +13,7 @@ import 'dayjs/locale/zh-cn';
 import zhCN from 'antd/locale/zh_CN';
 
 import 'antd/dist/reset.css';
-import './styles/index.less';
+import '@@share/styles/index.less';
 
 dayjs.locale('zh-cn');
 

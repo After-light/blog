@@ -1,8 +1,8 @@
-import '@@/images/wisdom.jpg';
-import '@@/images/brave.jpg';
-import '@@/images/love.jpg';
-import '@@/images/relax.jpg';
-import '@@/images/enjoy.jpg';
+import '@@share/images/wisdom.jpg';
+import '@@share/images/brave.jpg';
+import '@@share/images/love.jpg';
+import '@@share/images/relax.jpg';
+import '@@share/images/enjoy.jpg';
 
 export default [
   {

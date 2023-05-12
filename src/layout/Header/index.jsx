@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavigatorBar from '@@/components/NavigatorBar';
+import NavigatorBar from '@@components/NavigatorBar';
 
 import styles from './index.less';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import RotationChart from '@@/components/RotationChart';
+import RotationChart from '@@components/RotationChart';
 
 import charts from './charts';
 
