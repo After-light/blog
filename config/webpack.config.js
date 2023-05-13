@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // 复制Public文件夹中ico文件
 
 // 需要通过 cross-env 定义环境变量
 const isProduction = process.env.NODE_ENV === 'production';
@@ -112,6 +113,15 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../public/index.html'),
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../public'),
+          to: 'public',
+          filter: (path) => !path.includes('index.html'),
+        },
+      ],
     }),
     new InterpolateHtmlPlugin({
       PUBLIC_URL: 'public',

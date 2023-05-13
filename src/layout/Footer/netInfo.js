@@ -1,14 +1,16 @@
+import { createCopyEventCallback } from '@@share/js/utils';
+
 export default [
   {
     key: 'netOwnername',
     href: '/',
     content: '李瑞',
-    title: '',
+    title: '跳转到首页',
   },
   {
     key: 'email',
-    href: 'Lee_ro@163.com',
-    content: '李瑞',
+    content: 'Email',
     title: '点击复制邮箱',
+    onClick: createCopyEventCallback('lee_ro@163.com'),
   },
 ];

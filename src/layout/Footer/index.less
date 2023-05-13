@@ -8,8 +8,18 @@
   background: linear-gradient(to top, #e9ebec 0%, #e9ebec 60%, #ffffff);
 }
 
-.netInfo > * {
-  margin-right: 8px;
+.netInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  > * {
+    margin-right: 8px;
+  }
+}
+
+.logo {
+  max-width: 3rem;
 }
 
 .myWeChatWrapper {
@@ -19,5 +29,10 @@
   > img {
     max-width: 6.25rem;
     margin-bottom: 5px;
+  }
+
+  > div {
+    font-size: 0.875rem;
+    text-align: center;
   }
 }

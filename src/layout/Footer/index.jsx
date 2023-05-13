@@ -1,5 +1,8 @@
 import React from 'react';
 import myWeChat from '@@share/images/myWeChat.jpg';
+import logo from '@@share/images/logo.png';
+
+import netInfo from './netInfo';
 
 import styles from './index.less';
 
@@ -7,13 +10,13 @@ function Footer() {
   return (
     <div className={styles.footer}>
       <div className={styles.netInfo}>
+        <img className={styles.logo} src={logo} alt="logo" />
         <span>© 2022-2023</span>
-        <a className="link" href="/">
-          李瑞
-        </a>
-        <a className="link" href="void 0">
-          Email
-        </a>
+        {netInfo.map(({ key, content, ...resetProps }) => (
+          <a className="link" key={key} {...resetProps}>
+            {content}
+          </a>
+        ))}
       </div>
       <div className={styles.myWeChatWrapper}>
         <img src={myWeChat} alt="我的微信" />
