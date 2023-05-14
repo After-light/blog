@@ -6,7 +6,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin'); // 复制Public文件夹中ico文件
 
 // 需要通过 cross-env 定义环境变量
 const isProduction = process.env.NODE_ENV === 'production';
@@ -113,15 +112,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../public/index.html'),
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.resolve(__dirname, '../public'),
-          to: 'public',
-          filter: (path) => !path.includes('index.html'),
-        },
-      ],
+      favicon: path.resolve(__dirname, '../public/favicon.ico'),
     }),
     new InterpolateHtmlPlugin({
       PUBLIC_URL: 'public',
@@ -160,7 +151,7 @@ module.exports = {
     port: 3000,
     hot: true,
     compress: true,
-    historyApiFallback: true, // 解决路由404
+    historyApiFallback: true, // 解决路由路径刷新后404问题
   },
   mode: isProduction ? 'production' : 'development',
   devtool: isProduction ? 'source-map' : 'cheap-module-source-map',

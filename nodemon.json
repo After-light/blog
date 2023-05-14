@@ -1,0 +1,6 @@
+{
+  "watch": [
+    "server/"
+  ],
+  "delay": 1000
+}

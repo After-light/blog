@@ -21,7 +21,17 @@
   transition: all 0.5s ease;
   position: relative;
 
+  [class~='ant-list-item-extra'] {
+    margin: auto 0 auto 24px;
+  }
+
   &:hover {
     box-shadow: 2px 2px 5px 2px rgba(229, 232, 237);
   }
+}
+
+.articleContent {
+  max-height: 7.7rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

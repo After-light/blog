@@ -1,5 +1,5 @@
+const proxy = require('./proxy.js');
 const path = require('path');
-
 const webpackConfig = require('./config/webpack.config.js');
 
 module.exports = {
@@ -13,5 +13,9 @@ module.exports = {
       '@@share': path.resolve(__dirname, 'src/share'),
     },
     extensions: ['.js', '.jsx'],
+  },
+  devServer: {
+    ...webpackConfig.devServer,
+    proxy,
   },
 };

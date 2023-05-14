@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { List, Space } from 'antd';
 
 import chatImg from '@@share/images/myWeChat.jpg';
+import { getArticles } from './actions';
 
 import styles from './index.less';
-
-import testData from './test';
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -20,8 +19,10 @@ function ArticleList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setArticleList(testData);
-  }, [articleList]);
+    getArticles().then((data) => {
+      setArticleList(data);
+    });
+  }, []);
 
   const createTitleNode = (title, href) => {
     return (
@@ -50,7 +51,7 @@ function ArticleList() {
         extra={<img width={120} alt="logo" src={chatImg} />}
       >
         <List.Item.Meta title={createTitleNode(title, `${href}/${id}`)} description={createTime} />
-        {content}
+        <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: content }} />
       </List.Item>
     );
   };

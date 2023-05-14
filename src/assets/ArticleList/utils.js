@@ -4,7 +4,7 @@ import { StarOutlined, LikeOutlined, MessageOutlined } from '@ant-design/icons';
  * 创建article actions列表
  * @param {Object} actionProps 文章actions对象 { starNumber, likeNumber, messageNumber }
  */
-export const createArticleActions = ({ starNumber, likeNumber, messageNumber }) => [
+const createArticleActions = ({ starNumber, likeNumber, messageNumber }) => [
   {
     actionName: 'start',
     text: starNumber,
@@ -21,3 +21,20 @@ export const createArticleActions = ({ starNumber, likeNumber, messageNumber }) 
     icon: MessageOutlined,
   },
 ];
+
+/**
+ * 将getArticles接口返回的数据转为Articles
+ * @param {Array} data [{ id, title, createTime, content, starNumber, likeNumber, messageNumber }]
+ * @returns {Object} Promise
+ */
+export const convertToArticles = (data) => {
+  const articles = data.map(({ starNumber, likeNumber, messageNumber, ...resetProps }) => {
+    return {
+      ...resetProps,
+      href: '/article',
+      actions: createArticleActions({ starNumber, likeNumber, messageNumber }),
+    };
+  });
+
+  return new Promise((resolve) => resolve(articles));
+};

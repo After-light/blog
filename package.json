@@ -1,11 +1,19 @@
 {
   "name": "blog",
   "version": "0.1.0",
+  "description": "A blog using React, Redux, React-router-dom, antd, Node.js, Express, Mongoose and Webpack.",
   "private": true,
+  "author": "LeeRo",
+  "license": "MIT",
+  "main": "./server/index.js",
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "@reduxjs/toolkit": "^1.9.5",
     "antd": "^5.4.7",
     "classnames": "^2.3.2",
+    "dayjs": "^1.11.5",
+    "lodash": "^4.17.21",
+    "markdown-it": "^12.3.2",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -13,12 +21,15 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run dev",
+    "start": "concurrently \"yarn server\" \"yarn dev\"",
     "dev": "cross-env NODE_ENV=development webpack serve --config ./config.js",
-    "build": "cross-env NODE_ENV=production webpack --config ./config.js"
+    "build": "cross-env NODE_ENV=production webpack --config ./config.js",
+    "server": "nodemon ./server/index.js",
+    "build:id": "node ./config/createArticleIdMap.js"
   },
   "eslintConfig": {
     "extends": [
@@ -43,21 +54,26 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "babel-loader": "^8.2.5",
     "babel-preset-react-app": "^10.0.1",
-    "copy-webpack-plugin": "^10.2.4",
+    "concurrently": "^8.0.1",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^3.4.1",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-webpack-plugin": "^3.1.1",
+    "express": "^4.18.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "http-proxy-middleware": "^2.0.6",
     "image-webpack-loader": "^8.1.0",
     "imagemin-gifsicle": "^7.0.0",
     "interpolate-html-plugin": "^4.0.0",
     "less": "^4.1.3",
     "less-loader": "^7.3.0",
     "mini-css-extract-plugin": "^2.6.0",
+    "mongoose": "^7.1.1",
+    "nodemon": "^2.0.22",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.5.0",
     "react-refresh": "^0.13.0",
@@ -66,7 +82,7 @@
     "stylus-loader": "^6.2.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.15.0"
   }
 }
