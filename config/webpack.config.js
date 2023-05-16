@@ -7,6 +7,8 @@ const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 
+import cssLoaderIgnoreList from './cssLoaderIgnoreList';
+
 // 需要通过 cross-env 定义环境变量
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -16,8 +18,11 @@ const getStyleLoaders = (preProcessor) => {
     {
       loader: 'css-loader',
       options: {
-        importLoaders: 1,
         modules: {
+          auto: (resourcePath) => {
+            // resourcePath:绝对路径
+            return !cssLoaderIgnoreList.some((ignore) => resourcePath.includes(ignore));
+          },
           localIdentName: '[local]_[hash:base64:10]',
         },
       },
@@ -52,9 +57,8 @@ module.exports = {
       {
         oneOf: [
           {
-            // 用来匹配 .css 结尾的文件
             test: /\.css$/,
-            // use 数组里面 Loader 执行顺序是从右到左
+            // use 数组里面 Loader 执行顺序是从右到左，从下到上
             use: getStyleLoaders(),
           },
           {

@@ -22,7 +22,18 @@
   position: relative;
 
   [class~='ant-list-item-extra'] {
-    margin: auto 0 auto 24px;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+
+    &::before {
+      content: '';
+      width: 1px;
+      height: 100%;
+      color: #999;
+      border-left: 1px dashed silver;
+      margin: 0 1.5rem;
+    }
   }
 
   &:hover {
@@ -34,4 +45,24 @@
   max-height: 7.7rem;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.extra {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > img {
+    width: 120px;
+    margin-bottom: 1rem;
+  }
+
+  > button {
+    width: 100px;
+    border-radius: 0;
+
+    &:hover {
+      background-color: #ceedff;
+    }
+  }
 }

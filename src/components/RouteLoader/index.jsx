@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-function RouteLoader({ navList, createElement }) {
-  const renderBody = (item) => {
-    const { key, href } = item;
+import Loading from '../Loading';
 
-    return <Route key={key} path={href} element={createElement(item)} />;
+function RouteLoader({ navList }) {
+  const renderBody = ({ key, href, componentWrapper: LayoutWrapper, importComponent }) => {
+    const LazyComponent = lazy(importComponent);
+
+    const routeElement = (
+      <LayoutWrapper>
+        <LazyComponent />
+      </LayoutWrapper>
+    );
+
+    return <Route key={key} path={href} element={routeElement} />;
   };
 
-  return <Routes>{navList.map(renderBody)}</Routes>;
+  return (
+    <Suspense fallback={<Loading containerStyles={{ height: '600px' }} />}>
+      <Routes>{navList.map(renderBody)}</Routes>
+    </Suspense>
+  );
 }
 
 export default RouteLoader;

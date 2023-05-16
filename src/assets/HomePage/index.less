@@ -25,17 +25,8 @@
       background-color: #fff;
       position: absolute;
       left: 0;
-      animation: coding 2s steps(calc(31)), stop 1s steps(2) 2s infinite;
+      animation: coding 2s steps(31), stop 1s steps(2) 2s infinite;
     }
-  }
-}
-
-@keyframes star {
-  0% {
-    border-color: #fff;
-  }
-  100% {
-    border-color: #000;
   }
 }
 
@@ -51,13 +42,11 @@
 
 @keyframes stop {
   0% {
-    border-color: #fff;
+    border-color: transparent;
     left: 100%;
-    width: 2px;
   }
   100% {
     border-color: #000;
     left: 100%;
-    width: 2px;
   }
 }

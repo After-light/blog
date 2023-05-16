@@ -18,4 +18,5 @@ module.exports = {
     ...webpackConfig.devServer,
     proxy,
   },
+  stats: 'errors-warnings',
 };

@@ -1,8 +1,25 @@
+import { message } from 'antd';
+
 const copyText = (text) => {
   navigator.clipboard
     .writeText(text)
-    .then(() => console.log('Copied to clipboard:', text))
-    .catch((error) => console.error('Copy failed: ', error));
+    .then(() =>
+      message.success({
+        content: '复制成功！',
+        style: {
+          marginTop: '80px',
+        },
+      })
+    )
+    .catch((error) => {
+      message.error({
+        content: '复制失败！',
+        style: {
+          marginTop: '80px',
+        },
+      });
+      console.error('Copy failed: ', error);
+    });
 };
 
 /**

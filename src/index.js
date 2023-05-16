@@ -14,6 +14,7 @@ import zhCN from 'antd/locale/zh_CN';
 
 import 'antd/dist/reset.css';
 import '@@share/styles/index.less';
+import 'highlight.js/styles/base16/google-light.css';
 
 dayjs.locale('zh-cn');
 

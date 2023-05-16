@@ -1,9 +1,14 @@
-const getArticles = require('./articles');
+const { getArticleList, getArticleById } = require('./articles');
 
 module.exports = [
   {
     type: 'get',
-    path: '/api/getArticles',
-    callback: getArticles,
+    path: '/api/getArticleList',
+    callback: getArticleList,
+  },
+  {
+    type: 'get',
+    path: '/api/getArticleById/:id',
+    callback: getArticleById,
   },
 ];

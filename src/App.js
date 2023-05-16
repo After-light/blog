@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '@@layout/Header';
-import Body from '@@layout/Body';
+import Main from '@@layout/Main';
 
 import navList from './navList';
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Header navList={navList} />
-      <Body navList={navList} />
+      <Main navList={navList} />
     </div>
   );
 }

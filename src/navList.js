@@ -16,6 +16,7 @@ export default [
     importComponent: () =>
       import(/* webpackChunkName: 'TechnologyStack' */ '@@assets/TechnologyStack'),
     componentWrapper: BodyWrapperHeadless,
+    isLazy: true,
   },
   {
     key: 'tools',
@@ -23,6 +24,7 @@ export default [
     href: '/tools',
     importComponent: () => import(/* webpackChunkName: 'Tools' */ '@@assets/Tools'),
     componentWrapper: BodyWrapperHeadless,
+    isLazy: true,
   },
   {
     key: 'interviewQuestions',
@@ -31,6 +33,7 @@ export default [
     importComponent: () =>
       import(/* webpackChunkName: 'InterviewQuestions' */ '@@assets/InterviewQuestions'),
     componentWrapper: BodyWrapperHeadless,
+    isLazy: true,
   },
   {
     key: 'shallowReading',
@@ -39,6 +42,7 @@ export default [
     importComponent: () =>
       import(/* webpackChunkName: 'ShallowReading' */ '@@assets/ShallowReading'),
     componentWrapper: BodyWrapperHeadless,
+    isLazy: true,
   },
   {
     key: 'friendLink',
@@ -46,6 +50,7 @@ export default [
     href: '/friendLink',
     importComponent: () => import(/* webpackChunkName: 'FriendLink' */ '@@assets/FriendLink'),
     componentWrapper: BodyWrapperHeadless,
+    isLazy: true,
   },
   {
     key: 'articleContent',
@@ -53,6 +58,7 @@ export default [
     href: '/article/:id',
     importComponent: () => import(/* webpackChunkName: 'FriendLink' */ '@@assets/Article'),
     componentWrapper: BodyWrapperHeadless,
+    isLazy: true,
   },
   {
     key: 'all',
@@ -60,5 +66,6 @@ export default [
     href: '*',
     importComponent: () => import(/* webpackChunkName: 'HomePage' */ '@@assets/HomePage'),
     componentWrapper: BodyWrapper,
+    isLazy: true,
   },
 ];

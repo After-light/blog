@@ -31,7 +31,7 @@ export const convertToArticles = (data) => {
   const articles = data.map(({ starNumber, likeNumber, messageNumber, ...resetProps }) => {
     return {
       ...resetProps,
-      href: '/article',
+      href: `/article/${resetProps.id}`,
       actions: createArticleActions({ starNumber, likeNumber, messageNumber }),
     };
   });

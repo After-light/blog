@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { List, Space } from 'antd';
+import { List, Space, Button } from 'antd';
 
 import chatImg from '@@share/images/myWeChat.jpg';
-import { getArticles } from './actions';
+import { getArticleList } from '../common/actions';
 
 import styles from './index.less';
 
@@ -19,12 +19,12 @@ function ArticleList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getArticles().then((data) => {
+    getArticleList().then((data) => {
       setArticleList(data);
     });
   }, []);
 
-  const createTitleNode = (title, href) => {
+  const renderTitle = (title, href) => {
     return (
       <a className="link" onClick={() => navigate(href)}>
         {title}
@@ -32,7 +32,7 @@ function ArticleList() {
     );
   };
 
-  const createActions = (actions) => {
+  const renderActions = (actions) => {
     return actions.map(({ actionName, ...resetProps }, index) => (
       <IconText
         key={`${actionName}_${index}`}
@@ -42,15 +42,24 @@ function ArticleList() {
     ));
   };
 
+  const renderExtra = (href) => {
+    return (
+      <div className={styles.extra}>
+        <img alt="logo" src={chatImg} />
+        <Button onClick={() => navigate(href)}>阅读全文</Button>
+      </div>
+    );
+  };
+
   const renderArticle = ({ id, href, title, createTime, content, actions }) => {
     return (
       <List.Item
-        key={title}
+        key={id}
         className={styles.articleItem}
-        actions={createActions(actions)}
-        extra={<img width={120} alt="logo" src={chatImg} />}
+        actions={renderActions(actions)}
+        extra={renderExtra(href)}
       >
-        <List.Item.Meta title={createTitleNode(title, `${href}/${id}`)} description={createTime} />
+        <List.Item.Meta title={renderTitle(title, href)} description={createTime} />
         <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: content }} />
       </List.Item>
     );
