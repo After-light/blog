@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
-const markdown = require('markdown-it')();
 
 const { articleModel } = require('../models');
 
@@ -44,8 +43,9 @@ const getArticleDetail = (articleName, line) => {
   const content = !line
     ? lines.slice(1).join('\r\n')
     : `${lines
-        .slice(1, 5)
-        .map((e) => e.replace(/#|\*/g, '').trim())
+        .filter((e) => e.trim())
+        .slice(1, 1 + line)
+        .map((e) => e.replace(/#|\*/g, ''))
         .join('\r\n')} ...`;
 
   return { title, content };
@@ -80,7 +80,7 @@ const getArticlesInfo = () => {
     return {
       ...articleModel,
       id: articlesIdMap[file.name],
-      ...getArticleDetail(file.name, 5),
+      ...getArticleDetail(file.name, 3),
       createTime: (moment(birthtime) || moment()).format('YYYY-MM-DD'),
     };
   });

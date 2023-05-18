@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import classnames from 'classnames';
 
 import { pathToKey } from './utils';
+import { useNavAnimation } from '@@share/hooks';
 
 import styles from './index.less';
 
 function NavigatorBar({ navList }) {
   const location = useLocation();
   const [selectedKey, setSelectedKey] = useState();
+
+  const linksRef = useRef();
+  useNavAnimation(linksRef);
 
   useEffect(() => {
     const key = pathToKey(location.pathname);
@@ -18,9 +22,9 @@ function NavigatorBar({ navList }) {
   return (
     <div className={styles.navigatorBar}>
       <div className={styles.logo}>
-        <Link to="/">李瑞的博客</Link>
+        <Link to="/"></Link>
       </div>
-      <div className={styles.links}>
+      <div className={styles.links} ref={linksRef}>
         {navList
           .filter(({ name }) => name)
           .map(({ key, name, href }) => (

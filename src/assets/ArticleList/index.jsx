@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { List, Space, Button } from 'antd';
+import classnames from 'classnames';
 
 import chatImg from '@@share/images/myWeChat.jpg';
 import { getArticleList } from '../common/actions';
@@ -26,7 +27,7 @@ function ArticleList() {
 
   const renderTitle = (title, href) => {
     return (
-      <div className="link" onClick={() => navigate(href)}>
+      <div className={classnames(styles.articleTitle, 'link')} onClick={() => navigate(href)}>
         {title}
       </div>
     );
@@ -34,11 +35,7 @@ function ArticleList() {
 
   const renderActions = (actions) => {
     return actions.map(({ actionName, ...resetProps }, index) => (
-      <IconText
-        key={`${actionName}_${index}`}
-        className={styles[`icon_${actionName}`]}
-        {...resetProps}
-      />
+      <IconText key={`${actionName}_${index}`} className={styles.iconText} {...resetProps} />
     ));
   };
 
@@ -47,6 +44,20 @@ function ArticleList() {
       <div className={styles.extra}>
         <img alt="logo" src={chatImg} />
         <Button onClick={() => navigate(href)}>阅读全文</Button>
+      </div>
+    );
+  };
+
+  const renderContent = (content) => {
+    const contentList = content.split('\r\n');
+    return (
+      <div>
+        {contentList.map((text, index) => (
+          <Fragment key={index}>
+            {<span>{text}</span>}
+            {index !== contentList.length - 1 && <br />}
+          </Fragment>
+        ))}
       </div>
     );
   };
@@ -60,15 +71,15 @@ function ArticleList() {
         extra={renderExtra(href)}
       >
         <List.Item.Meta title={renderTitle(title, href)} description={createTime} />
-        <pre>{content}</pre>
+        {renderContent(content)}
       </List.Item>
     );
   };
 
   return (
-    <div className={styles.articleList}>
-      <div className={styles.title}>LAST POSTS</div>
-      <div className={styles.info}>最新的文章</div>
+    <div className={styles.list}>
+      <div className={styles.listTitle}>LAST POSTS</div>
+      <div className={styles.listInfo}>最新的文章</div>
       <List
         itemLayout="vertical"
         size="large"

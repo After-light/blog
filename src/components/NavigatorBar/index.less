@@ -28,6 +28,8 @@
   align-items: center;
   justify-content: flex-end;
   padding: 0.2rem 1.5rem;
+  flex: 1;
+  max-width: calc(100% - 8rem);
 
   > a {
     text-decoration: none;
@@ -38,7 +40,7 @@
     transition: all 0.5s ease;
 
     &:not(:last-child) {
-      margin-right: calc(var(--gap) * 1rem);
+      margin-right: 5%;
     }
 
     &:hover {
