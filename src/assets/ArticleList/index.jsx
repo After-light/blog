@@ -26,9 +26,9 @@ function ArticleList() {
 
   const renderTitle = (title, href) => {
     return (
-      <a className="link" onClick={() => navigate(href)}>
+      <div className="link" onClick={() => navigate(href)}>
         {title}
-      </a>
+      </div>
     );
   };
 
@@ -60,7 +60,7 @@ function ArticleList() {
         extra={renderExtra(href)}
       >
         <List.Item.Meta title={renderTitle(title, href)} description={createTime} />
-        <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: content }} />
+        <pre>{content}</pre>
       </List.Item>
     );
   };

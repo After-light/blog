@@ -15,10 +15,10 @@ import styles from './index.less';
 
 function Article() {
   const { id } = useParams();
-  const [htmlContent, setHtmlContent] = useState(null);
+  const [articleDetail, setArticleDetail] = useState({ title: '', content: '' });
 
   useEffect(() => {
-    getArticleById(id).then((data) => setHtmlContent(data));
+    getArticleById(id).then((data) => setArticleDetail(data));
   }, []);
 
   // 自定义渲染器：为标题添加 id 属性
@@ -45,8 +45,9 @@ function Article() {
 
   return (
     <div className={classnames(styles.article, styles.markdownContainer)}>
+      <h1 className={styles.articleTitle}>{articleDetail.title}</h1>
       <ReactMarkdown
-        children={htmlContent}
+        children={articleDetail.content}
         components={renderers}
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeKatex]}

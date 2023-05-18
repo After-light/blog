@@ -28,13 +28,15 @@ const createArticleActions = ({ starNumber, likeNumber, messageNumber }) => [
  * @returns {Object} Promise
  */
 export const convertToArticles = (data) => {
-  const articles = data.map(({ starNumber, likeNumber, messageNumber, ...resetProps }) => {
-    return {
-      ...resetProps,
-      href: `/article/${resetProps.id}`,
-      actions: createArticleActions({ starNumber, likeNumber, messageNumber }),
-    };
-  });
+  const articles = data
+    .map(({ starNumber, likeNumber, messageNumber, ...resetProps }) => {
+      return {
+        ...resetProps,
+        href: `/article/${resetProps.id}`,
+        actions: createArticleActions({ starNumber, likeNumber, messageNumber }),
+      };
+    })
+    .sort((a, b) => new Date(b.createTime) - new Date(a.createTime));
 
   return new Promise((resolve) => resolve(articles));
 };
