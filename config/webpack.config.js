@@ -6,8 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-
-import cssLoaderIgnoreList from './cssLoaderIgnoreList';
+const cssLoaderIgnoreList = require('./cssLoaderIgnoreList');
 
 // 需要通过 cross-env 定义环境变量
 const isProduction = process.env.NODE_ENV === 'production';

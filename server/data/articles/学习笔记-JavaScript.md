@@ -140,8 +140,6 @@ a ? 1 : 0;
 
 ## **原型和原型链**
 
-### **含义**
-
 显式原型：每个函数的 prototype 属性
 
 隐式原型：每个实例对象的\_\_proto\_\_属性
@@ -345,7 +343,7 @@ apply：只有两个参数，第一个参数是 this 指向的对象，第二个
 
 ### **闭包**
 
-**含义** ：引用了另一个函数作用域中变量的函数，通常是嵌套函数中实现
+引用了另一个函数作用域中变量的函数，通常是嵌套函数中实现
 
 ```javascript
 function a() {
@@ -371,11 +369,11 @@ a()();
 
 #### **执行上下文栈（调用栈）**
 
-**含义** ：执行所有代码的栈，英文 Execution Context Stack（ECS）
+执行所有代码的栈，英文 Execution Context Stack（ECS）
 
 #### **全局执行栈**
 
-**含义** ：为了执行全局代码构建的栈，英文 Global Execution Context（GEC）
+为了执行全局代码构建的栈，英文 Global Execution Context（GEC）
 
 **工作** ：创建全局对象 Global Object（GO）
 
@@ -389,7 +387,7 @@ a()();
 
 #### **函数执行上下文**
 
-**含义** ：为了执行函数体构建的栈，Functional Execution Context–简称 FEC
+为了执行函数体构建的栈，Functional Execution Context–简称 FEC
 
 **工作** ：
 
@@ -423,7 +421,7 @@ d. 执行其他代码
 
 不推荐使用
 
-## **事件循环机制**
+## **事件循环**
 
 事件循环又称消息循环，是浏览器渲染主线程的工作方式。
 
@@ -450,7 +448,7 @@ d. 执行其他代码
 
 ### 经典例题
 
-#### 例一
+#### 例一：全局执行环境+promise
 
 ```javascript
 const promise1 = new Promise((resolve, reject) => {
@@ -483,7 +481,7 @@ console.log(4);
 
 **3**
 
-#### 例二
+#### 例二：全局执行环境+promise+promise.then
 
 ```javascript
 const promise1 = new Promise((resolve, reject) => {
@@ -507,7 +505,7 @@ console.log(4);
 
 4
 
-#### 例三
+#### 例三：全局执行环境+多个 promise
 
 ```javascript
 const promise1 = new Promise((resolve, reject) => {
@@ -550,7 +548,7 @@ promise2: <_pedding_\>
 
 resolve1
 
-#### 例四
+#### 例四：全局执行环境+setTimeout+promise
 
 ```javascript
 console.log('start');
@@ -590,7 +588,7 @@ resolve
 
 setTimeout
 
-#### 例五
+#### 例五：全局执行环境+promise+promise 嵌套 setTimeout
 
 ```javascript
 const promise = new Promise((resolve, reject) => {
@@ -652,7 +650,7 @@ timerEnd
 
 success
 
-#### **例六**
+#### **例六：全局执行环境+setTimeout+setTimeout 嵌套 setTimeout**
 
 ```javascript
 const timer1 = setTimeout(() => {
@@ -680,7 +678,7 @@ timer2
 
 timer3
 
-#### **例七**
+#### **例七：全局执行环境+setTimeout+setTimeout 嵌套 Promise**
 
 ```javascript
 const timer1 = setTimeout(() => {
@@ -708,7 +706,7 @@ promise1
 
 timer2
 
-#### **例八**
+#### **例八：全局执行环境+Promise 嵌套 setTimeout+setTimeout 嵌套 Promise**
 
 ```javascript
 const promise1 = Promise.resolve().then(() => {
@@ -742,7 +740,7 @@ promise2
 
 timer2
 
-#### **例九**
+#### **例九：全局执行环境+Promise 原理+setTimeout+Promise 嵌套 setTimeout**
 
 ```javascript
 const promise1 = new Promise((resolve) => {
@@ -814,7 +812,7 @@ DOM 事件流：事件捕获阶段（document--\>html--\>body）、到达目标�
 
 ### **防抖（debounce**）
 
-**含义** ：在事件被触发 n 秒后再执行回调函数，如果在这 n 秒内又被触发，则重新计时。
+在事件被触发 n 秒后再执行回调函数，如果在这 n 秒内又被触发，则重新计时。
 
 **应用场景** ：
 
@@ -823,12 +821,68 @@ DOM 事件流：事件捕获阶段（document--\>html--\>body）、到达目标�
 
 ### 节流（throttling）
 
-**含义** ：规定一个单位时间，在这个单位时间内，只能有一次触发事件的回调函数执行，如果在同一个单位时间内某事件被触发多次，只有一次能生效。
+规定一个单位时间，在这个单位时间内，只能有一次触发事件的回调函数执行，如果在同一个单位时间内某事件被触发多次，只有一次能生效。
 
 **应用场景** ：
 
 - 鼠标连续不断地触发某事件（如点击），只在单位时间内只触发一次
 - 页面加载，滚动到底部再次请求数据时
+
+## ES6 语法
+
+### Promise
+
+Promise 是一种异步编程解决方案，用于处理异步操作和回调函数嵌套过多的问题。Promise 实际上是一个对象，通过该对象可以获取异步操作的结果。Promise 一般包含三种状态：pending（进行中）、fulfilled（已成功）和 rejected（已失败）。
+
+### 使用场景
+
+- 处理异步操作，替代回调函数嵌套
+- 处理多个异步操作，并发执行
+- 处理多个异步操作中的第一个完成的场景
+- 错误处理
+
+  ```javascript
+  // 实现一个超时请求处理
+  function requestWithTimeout(requestPromise, timeout = 5000) {
+    const createTimeoutPromise = (timeout) => {
+      return new Promise((_, reject) =>
+        setTimeout(() => reject(`request timeout after ${timeout}ms`), timeout)
+      );
+    };
+
+    return Promise.race([requestPromise, createTimeoutPromise(timeout)]).catch((err) => {
+      throw new Error(err);
+    });
+  }
+
+  // Promise.all方法处理多个异步任务并发执行的场景
+  const promise1 = Promise.resolve(1);
+  const promise2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(2);
+    }, 1000);
+  });
+  Promise.all([promise1, promise2]).then((values) => {
+    console.log(values); // [1, 2]
+  });
+
+  // 如何使用catch方法处理Promise中的错误
+  fetchWithTimeout('https://www.example.com')
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  ```
+
+### 面试题
+
+- 实现一个超时请求处理
+- Promise 的底层实现原理和使用场景
+- 如何在 then 方法中返回一个 Promise 实例
+- 如何使用 Promise.all 方法处理多个异步任务并发执行的场景
+- 如何使用 catch 方法处理 Promise 中的错误
 
 ## **FAQ**
 
