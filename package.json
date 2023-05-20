@@ -71,6 +71,7 @@
     "html-webpack-plugin": "^5.5.0",
     "http-proxy-middleware": "^2.0.6",
     "image-webpack-loader": "^8.1.0",
+    "gifsicle": "5.3.0",
     "imagemin-gifsicle": "^7.0.0",
     "interpolate-html-plugin": "^4.0.0",
     "less": "^4.1.3",

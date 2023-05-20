@@ -6,10 +6,11 @@ import classnames from 'classnames';
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
-import hljs from 'highlight.js';
+
+import MarkdownTree from '@@components/MarkdownTree';
 
 import { getArticleById } from '../common/actions';
-import { createCopyEventCallback } from '@@share/js/utils';
+import renderers from './buildMarkdownRenderers';
 
 import styles from './index.less';
 
@@ -21,37 +22,22 @@ function Article() {
     getArticleById(id).then((data) => setArticleDetail(data));
   }, []);
 
-  // 自定义渲染器：为标题添加 id 属性
-  const renderers = {
-    code: ({ className, children }) => {
-      const language = className?.replace(/language-/, '') || 'js';
-      const hljsLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-      const text = children[0];
-
-      const htmlContent = hljs.highlight(hljsLanguage, text).value;
-
-      return (
-        <>
-          <div className={styles.copyWrapper}>
-            <div title="复制" className={styles.copyImg} onClick={createCopyEventCallback(text)} />
-          </div>
-          <pre className={styles.code}>
-            <code dangerouslySetInnerHTML={{ __html: htmlContent }} />
-          </pre>
-        </>
-      );
-    },
-  };
-
   return (
     <div className={classnames(styles.article, styles.markdownContainer)}>
-      <h1 className={styles.articleTitle}>{articleDetail.title}</h1>
-      <ReactMarkdown
-        children={articleDetail.content}
-        components={renderers}
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeKatex]}
-      />
+      <div className={styles.articleDetail}>
+        <h1 id={articleDetail.title?.trim()} className={styles.articleTitle}>
+          {articleDetail.title}
+        </h1>
+        <ReactMarkdown
+          children={articleDetail.content}
+          components={renderers}
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeKatex]}
+        />
+      </div>
+      <div className={styles.markdownTreeContainer}>
+        <MarkdownTree title={articleDetail.title} content={articleDetail.content} />
+      </div>
     </div>
   );
 }
