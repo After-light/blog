@@ -30,7 +30,11 @@ const addId = (item) => {
   return React.createElement(`h${level}`, { id: text }, text);
 };
 
-const renderCopyButton = ({ children }) => {
+const renderCopyButton = ({ inline, children }) => {
+  if (inline) {
+    return null;
+  }
+
   return (
     <div key="copyButton" className={styles.copyWrapper}>
       <div title="复制" className={styles.copyImg} onClick={createCopyEventCallback(children[0])} />
@@ -38,14 +42,14 @@ const renderCopyButton = ({ children }) => {
   );
 };
 
-const renderHightLightCode = ({ className, children }) => {
+const renderHightLightCode = ({ inline, className, children }) => {
   const language = className?.replace(/language-/, '') || 'js';
   const hljsLanguage = hljs.getLanguage(language) ? language : 'plaintext';
   const text = children[0];
   const htmlContent = hljs.highlight(hljsLanguage, text).value;
 
   return (
-    <pre key="code" className={styles.code}>
+    <pre key="code" className={styles[inline ? 'codeInLine' : 'code']}>
       <code dangerouslySetInnerHTML={{ __html: htmlContent }} />
     </pre>
   );

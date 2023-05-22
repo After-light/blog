@@ -26,4 +26,4 @@ function MarkdownTree({ title, content }) {
   ) : null;
 }
 
-export default MarkdownTree;
+export default React.memo(MarkdownTree);
