@@ -2,11 +2,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  align-items: baseline;
   margin-top: 1rem;
   padding: 1rem 0;
   color: #000;
   background: linear-gradient(to top, var(--color-primary-border) 0%, var(--color-primary-bg));
+  font-size: 0.875rem;
 }
 
 .netInfo {
@@ -16,6 +17,7 @@
 
   > * {
     margin-right: 8px;
+    line-height: 1.5;
   }
 }
 
@@ -33,7 +35,6 @@
   }
 
   > div {
-    font-size: 0.875rem;
     text-align: center;
   }
 }

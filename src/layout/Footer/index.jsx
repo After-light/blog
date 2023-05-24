@@ -11,7 +11,7 @@ function Footer() {
     <div className={styles.footer}>
       <div className={styles.netInfo}>
         <img className={styles.logo} src={logo} alt="logo" />
-        <span>© 2022-2023</span>
+        <span>© 2023</span>
         {netInfo.map(({ key, content, ...resetProps }) => (
           <a className="link" key={key} {...resetProps}>
             {content}
