@@ -63,7 +63,7 @@ const linkItemAnimation = (initMargin, scrollHeight, linksRef) => {
 };
 
 const handleScroll = (linksRef) => {
-  const navContainerDom = document.querySelector('.App div[class^="container"]');
+  const navContainerDom = document.querySelector('body div[class^="container"]');
   const initNavContainerMargin = getDomMargin(navContainerDom, 'margin');
   const initLinkItemMarginRight = getDomMargin(linksRef.current.childNodes[0], 'margin-right');
 
@@ -81,7 +81,7 @@ const handleScroll = (linksRef) => {
 
 const useNavAnimation = (linksRef) => {
   useEffect(() => {
-    const mainDom = document.querySelector('.App>.scrollbar');
+    const mainDom = document.querySelector('body .scrollbar');
     mainDom.addEventListener('scroll', handleScroll(linksRef));
 
     return () => {

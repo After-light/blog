@@ -1,3 +1,15 @@
+@import 'antd/dist/reset.css';
+@import 'highlight.js/styles/base16/google-light.css';
+@import './theme.blue.less';
+@import './theme.purple.less';
+@import './theme.cyan.less';
+@import './theme.green.less';
+@import './theme.pink.less';
+@import './theme.red.less';
+@import './theme.orange.less';
+@import './theme.yellow.less';
+@import './theme.volcano.less';
+
 :root {
   --nav-height: 5rem;
   --scrollbar-width: 0;
@@ -12,9 +24,13 @@
 
 body {
   margin: 0;
-  font: 300 16px Consolas, Monaco, Tahoma, 'Helvetica Neue', Helvetica, 'Lucida Grande',
-    'Lantinghei SC', 'Open Sans', 'Microsoft YaHei', sans-serif;
+  font: 300 16px @fontFamilyCode;
   caret-color: transparent;
+}
+
+div[id='root'] {
+  background-color: var(--color-primary-bg);
+  transition: background-color 0.5s ease;
 }
 
 :global {
@@ -41,14 +57,14 @@ body {
   }
 
   .link {
-    color: #0969da;
+    color: var(--color-primary-text);
     text-decoration: none;
     background-color: transparent;
     cursor: pointer;
     transition: all 0.5s ease;
 
     &:hover {
-      color: #69b1ff;
+      color: var(--color-primary-text-hover);
       text-decoration: underline;
     }
   }
