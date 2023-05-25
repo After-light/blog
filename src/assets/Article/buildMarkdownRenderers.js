@@ -48,10 +48,12 @@ const renderHightLightCode = ({ inline, className, children }) => {
   const text = children[0];
   const htmlContent = hljs.highlight(hljsLanguage, text).value;
 
-  return (
-    <pre key="code" className={styles[inline ? 'codeInLine' : 'code']}>
-      <code dangerouslySetInnerHTML={{ __html: htmlContent }} />
-    </pre>
+  const code = <code dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+
+  return React.createElement(
+    inline ? 'span' : 'pre',
+    { key: 'code', className: styles[inline ? 'codeInLine' : 'code'] },
+    code
   );
 };
 

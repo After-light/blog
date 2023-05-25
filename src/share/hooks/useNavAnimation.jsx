@@ -4,6 +4,9 @@ const MIN_NAV_CONTAINER_MARGIN = 0;
 const MIN_LINK_ITEM_MARGIN_RIGHT = 10;
 
 const getDomMargin = (dom, prop) => {
+  if (!dom) {
+    return;
+  }
   return parseInt(window.getComputedStyle(dom)[prop]);
 };
 
