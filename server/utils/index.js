@@ -74,16 +74,20 @@ const getArticlesInfo = () => {
   // 获取文章id字典
   const articlesIdMap = getArticlesIdMap();
 
-  return files.map((file) => {
-    const { birthtime } = getArticleStat(file.name);
-
-    return {
-      ...articleModel,
-      id: articlesIdMap[file.name],
-      ...getArticleDetail(file.name, 3),
-      createTime: (moment(birthtime) || moment()).format('YYYY-MM-DD'),
-    };
-  });
+  return files
+    .filter((file) => {
+      const stats = getArticleStat(file.name);
+      return !stats.isDirectory();
+    })
+    .map((file) => {
+      const { birthtime } = getArticleStat(file.name);
+      return {
+        ...articleModel,
+        id: articlesIdMap[file.name],
+        ...getArticleDetail(file.name, 3),
+        createTime: (moment(birthtime) || moment()).format('YYYY-MM-DD'),
+      };
+    });
 };
 
 module.exports = {

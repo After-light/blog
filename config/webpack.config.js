@@ -7,6 +7,7 @@ const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const cssLoaderIgnoreList = require('./cssLoaderIgnoreList');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // 需要通过 cross-env 定义环境变量
 const isProduction = process.env.NODE_ENV === 'production';
@@ -95,10 +96,7 @@ module.exports = {
             options: {
               cacheDirectory: true, // 开启babel编译缓存
               cacheCompression: false, // 缓存文件不要压缩
-              plugins: [
-                // "@babel/plugin-transform-runtime",  // presets中包含了
-                !isProduction && 'react-refresh/babel',
-              ].filter(Boolean),
+              plugins: [!isProduction && 'react-refresh/babel'].filter(Boolean),
             },
           },
         ],
@@ -117,6 +115,7 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html'),
       favicon: path.resolve(__dirname, '../public/favicon.ico'),
     }),
+    // 配合HtmlWebpackPlugin一起使用的，允许index.html中使用变量
     new InterpolateHtmlPlugin({
       PUBLIC_URL: 'public',
     }),
@@ -126,6 +125,7 @@ module.exports = {
         chunkFilename: 'static/css/[name].[contenthash:10].chunk.css',
       }),
     !isProduction && new ReactRefreshWebpackPlugin(),
+    new BundleAnalyzerPlugin(),
   ].filter(Boolean),
   optimization: {
     minimize: isProduction,
@@ -139,7 +139,6 @@ module.exports = {
     // 代码分割配置
     splitChunks: {
       chunks: 'all',
-      // 其他都用默认值
     },
     runtimeChunk: {
       name: (entrypoint) => `runtime~${entrypoint.name}`,

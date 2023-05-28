@@ -17,60 +17,63 @@ const createMarkdownList = ({ title, content }) => {
       const str = lineStr.trim();
       return str?.match(/^(#{1,6})\s/);
     })
-    .map((text) => {
+    .map((text, index) => {
       const level = countCharAtBeginningOfQueryString(text, '#');
-      return { level, title: text.replace(/#|\*/g, '').trim() };
+      return { key: index + 2, level, title: text.replace(/#|\*/g, '').trim() };
     });
 
-  return [{ level: 1, title: title.trim() }].concat(list);
+  return [{ key: 1, level: 1, title: title.trim() }].concat(list);
 };
 
-const createMarkdownLink = (markdown) => {
-  const list = createMarkdownList(markdown);
+// 下一个节点是否是它的孩子节点
+const isParent = (current, next) => {
+  if (!current || !next) {
+    return;
+  }
 
-  const levelMap = {};
-  return list.map(({ level, title }, index) => {
-    const key = index + 1;
+  return next.level - 1 === current.level;
+};
 
-    levelMap[level] = !levelMap[level] ? [key] : levelMap[level].concat(key);
+const findChildren = (current, list) => {
+  const { level } = current;
 
-    const parentKey = levelMap[level - 1] ? levelMap[level - 1].slice(-1)[0] : '';
+  return list.filter((e) => {
+    const sameLevel = e.level === level + 1;
+    if (sameLevel) {
+      e.parentKey = current.key;
+    }
 
-    return { key, parentKey, level, title };
+    return sameLevel;
   });
 };
 
 /**
- * @param {*} list
- * @returns
+ * 将markdownList转成树
+ * @param {Array} list
+ * @returns {Array} tree
  */
 const convertToTree = (list) => {
-  const findChildrenLoop = (parentNode, list) => {
-    let children = [];
-    for (let i = 0; i < list.length; i++) {
-      const current = {
-        ...list[i],
-        children: [],
-      };
-      const next = list[i + 1];
+  for (let i = 0; i < list.length; i++) {
+    const current = list[i];
+    current.parentKey = '';
+    const next = list[i + 1];
 
-      const currentHasChildren = next && next.parentKey === current.key;
-      if (currentHasChildren) {
-        current.children = findChildrenLoop(current, list.slice(i + 1));
-      }
+    // 1.判断当前节点是否是父节点
+    const isParentNode = isParent(current, next);
 
-      if (current.parentKey === parentNode.key) {
-        children.push(current);
-      }
-    }
-    return children;
-  };
-  const rootNode = list.shift();
-  rootNode.children = findChildrenLoop(rootNode, list);
-  return [rootNode];
+    // 2.如果是父节点，帮他找到所有孩子
+    const startIndex = i + 1;
+
+    // 找到下一个同级节点，如果没找到，则取全部
+    const nextWithSameLevel = list.slice(startIndex).findIndex((e) => e.level === current.level);
+    const endIndex = startIndex + (nextWithSameLevel > 0 ? nextWithSameLevel : list.length - 1);
+
+    current.children = isParentNode ? findChildren(current, list.slice(startIndex, endIndex)) : [];
+  }
 };
 
 export default (markdown) => {
-  const mdList = createMarkdownLink(markdown);
-  return convertToTree(mdList);
+  const mdList = createMarkdownList(markdown);
+  convertToTree(mdList);
+  return [mdList.shift()];
 };

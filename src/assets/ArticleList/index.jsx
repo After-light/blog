@@ -78,7 +78,7 @@ function ArticleList() {
 
   return (
     <div className={styles.list}>
-      <div className={styles.listTitle}>LAST POSTS</div>
+      <div className={styles.listTitle}>LATEST POSTS</div>
       <div className={styles.listInfo}>最新的文章</div>
       <List
         itemLayout="vertical"

@@ -66,4 +66,8 @@ export default {
   h4: addId,
   h5: addId,
   h6: addId,
+  img: (nodeProps) => {
+    console.info(nodeProps);
+    return <img src="" />;
+  },
 };
