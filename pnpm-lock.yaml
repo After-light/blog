@@ -69,6 +69,9 @@ devDependencies:
   '@pmmmwh/react-refresh-webpack-plugin':
     specifier: ^0.5.5
     version: registry.npmmirror.com/@pmmmwh/react-refresh-webpack-plugin@0.5.5(react-refresh@0.13.0)(webpack-dev-server@4.15.0)(webpack@5.72.0)
+  add-asset-html-webpack-plugin:
+    specifier: ^6.0.0
+    version: registry.npmmirror.com/add-asset-html-webpack-plugin@6.0.0(html-webpack-plugin@5.5.0)(webpack@5.72.0)
   babel-loader:
     specifier: ^8.2.5
     version: registry.npmmirror.com/babel-loader@8.2.5(@babel/core@7.17.10)(webpack@5.72.0)
@@ -78,6 +81,9 @@ devDependencies:
   concurrently:
     specifier: ^8.0.1
     version: registry.npmmirror.com/concurrently@8.0.1
+  copy-webpack-plugin:
+    specifier: ^11.0.0
+    version: registry.npmmirror.com/copy-webpack-plugin@11.0.0(webpack@5.72.0)
   cors:
     specifier: ^2.8.5
     version: registry.npmmirror.com/cors@2.8.5
@@ -171,6 +177,9 @@ devDependencies:
   webpack-dev-server:
     specifier: ^4.15.0
     version: registry.npmmirror.com/webpack-dev-server@4.15.0(webpack-cli@4.10.0)(webpack@5.72.0)
+  webpack-merge:
+    specifier: ^5.9.0
+    version: registry.npmmirror.com/webpack-merge@5.9.0
 
 packages:
 
@@ -3728,6 +3737,22 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
+  registry.npmmirror.com/add-asset-html-webpack-plugin@6.0.0(html-webpack-plugin@5.5.0)(webpack@5.72.0):
+    resolution: {integrity: sha512-W5uv10hFCsYFwG6EM2pbV/RqLZT04jiUbR9uAaPSc2LC8XiGkEOfDtBagKzNxEKudK7i3EKWwPaFr8talsEb7g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/add-asset-html-webpack-plugin/-/add-asset-html-webpack-plugin-6.0.0.tgz}
+    id: registry.npmmirror.com/add-asset-html-webpack-plugin/6.0.0
+    name: add-asset-html-webpack-plugin
+    version: 6.0.0
+    engines: {node: ^16.13.0 || ^18.12.0 || >=20.0.0}
+    peerDependencies:
+      html-webpack-plugin: ^4.0.0 || ^5.0.0
+      webpack: ^5.0.0
+    dependencies:
+      globby: registry.npmmirror.com/globby@11.1.0
+      html-webpack-plugin: registry.npmmirror.com/html-webpack-plugin@5.5.0(webpack@5.72.0)
+      micromatch: registry.npmmirror.com/micromatch@4.0.5
+      webpack: registry.npmmirror.com/webpack@5.72.0(webpack-cli@4.10.0)
+    dev: true
+
   registry.npmmirror.com/address@1.2.2:
     resolution: {integrity: sha512-4B/qKCfeE/ODUaAUpSwfzazo5x29WD4r3vXiWsB7I2mSDAihwEqKO+g8GELZUQSSAo5e1XTYh3ZVfLyxBc12nA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/address/-/address-1.2.2.tgz}
     name: address
@@ -5052,6 +5077,24 @@ packages:
     dependencies:
       toggle-selection: registry.npmmirror.com/toggle-selection@1.0.6
     dev: false
+
+  registry.npmmirror.com/copy-webpack-plugin@11.0.0(webpack@5.72.0):
+    resolution: {integrity: sha512-fX2MWpamkW0hZxMEg0+mYnA40LTosOSa5TqZ9GYIBzyJa9C3QUaMPSE2xAi/buNr8u89SfD9wHSQVBzrRa/SOQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/copy-webpack-plugin/-/copy-webpack-plugin-11.0.0.tgz}
+    id: registry.npmmirror.com/copy-webpack-plugin/11.0.0
+    name: copy-webpack-plugin
+    version: 11.0.0
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      webpack: ^5.1.0
+    dependencies:
+      fast-glob: registry.npmmirror.com/fast-glob@3.2.12
+      glob-parent: registry.npmmirror.com/glob-parent@6.0.2
+      globby: registry.npmmirror.com/globby@13.1.4
+      normalize-path: registry.npmmirror.com/normalize-path@3.0.0
+      schema-utils: registry.npmmirror.com/schema-utils@4.0.1
+      serialize-javascript: registry.npmmirror.com/serialize-javascript@6.0.1
+      webpack: registry.npmmirror.com/webpack@5.72.0(webpack-cli@4.10.0)
+    dev: true
 
   registry.npmmirror.com/core-js-compat@3.30.2:
     resolution: {integrity: sha512-nriW1nuJjUgvkEjIot1Spwakz52V9YkYHZAQG6A1eCgC8AA1p0zngrQEP9R0+V6hji5XilWKG1Bd0YRppmGimA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/core-js-compat/-/core-js-compat-3.30.2.tgz}
@@ -7288,7 +7331,7 @@ packages:
   registry.npmmirror.com/gifsicle@5.3.0:
     resolution: {integrity: sha512-9ewIQQCAnSmkU2DhuWafd1DdsgzAkKqIWnY+023xBLSiK9Az2TDUozWQW+SyRQgFMclbe6RQldUk/49TRO3Aqw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/gifsicle/-/gifsicle-5.3.0.tgz}
     name: gifsicle
-    version: 5.3.0
+    version: 5.2.1
     engines: {node: '>=10'}
     hasBin: true
     requiresBuild: true
@@ -7414,6 +7457,19 @@ packages:
       ignore: registry.npmmirror.com/ignore@5.2.4
       merge2: registry.npmmirror.com/merge2@1.4.1
       slash: registry.npmmirror.com/slash@3.0.0
+
+  registry.npmmirror.com/globby@13.1.4:
+    resolution: {integrity: sha512-iui/IiiW+QrJ1X1hKH5qwlMQyv34wJAYwH1vrf8b9kBA4sNiif3gKsMHa+BrdnOpEudWjpotfa7LrTzB1ERS/g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/globby/-/globby-13.1.4.tgz}
+    name: globby
+    version: 13.1.4
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      dir-glob: registry.npmmirror.com/dir-glob@3.0.1
+      fast-glob: registry.npmmirror.com/fast-glob@3.2.12
+      ignore: registry.npmmirror.com/ignore@5.2.4
+      merge2: registry.npmmirror.com/merge2@1.4.1
+      slash: registry.npmmirror.com/slash@4.0.0
+    dev: true
 
   registry.npmmirror.com/gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/gopd/-/gopd-1.0.1.tgz}
@@ -14102,7 +14158,6 @@ packages:
     name: slash
     version: 4.0.0
     engines: {node: '>=12'}
-    dev: false
 
   registry.npmmirror.com/smart-buffer@4.2.0:
     resolution: {integrity: sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/smart-buffer/-/smart-buffer-4.2.0.tgz}
@@ -15634,7 +15689,7 @@ packages:
       webpack: registry.npmmirror.com/webpack@5.72.0(webpack-cli@4.10.0)
       webpack-bundle-analyzer: registry.npmmirror.com/webpack-bundle-analyzer@4.8.0
       webpack-dev-server: registry.npmmirror.com/webpack-dev-server@4.15.0(webpack-cli@4.10.0)(webpack@5.72.0)
-      webpack-merge: registry.npmmirror.com/webpack-merge@5.8.0
+      webpack-merge: registry.npmmirror.com/webpack-merge@5.9.0
 
   registry.npmmirror.com/webpack-dev-middleware@5.3.3(webpack@5.72.0):
     resolution: {integrity: sha512-hj5CYrY0bZLB+eTO+x/j67Pkrquiy7kWepMHmUMoPsmcUaeEnQJqFzHJOyxgWlq746/wUuA64p9ta34Kyb01pA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/webpack-dev-middleware/-/webpack-dev-middleware-5.3.3.tgz}
@@ -15720,10 +15775,10 @@ packages:
       webpack-sources: registry.npmmirror.com/webpack-sources@2.3.1
     dev: false
 
-  registry.npmmirror.com/webpack-merge@5.8.0:
-    resolution: {integrity: sha512-/SaI7xY0831XwP6kzuwhKWVKDP9t1QY1h65lAFLbZqMPIuYcD9QAW4u9STIbU9kaJbPBB/geU/gLr1wDjOhQ+Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/webpack-merge/-/webpack-merge-5.8.0.tgz}
+  registry.npmmirror.com/webpack-merge@5.9.0:
+    resolution: {integrity: sha512-6NbRQw4+Sy50vYNTw7EyOn41OZItPiXB8GNv3INSoe3PSFaHJEz3SHTrYVaRm2LilNGnFUzh0FAwqPEmU/CwDg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/webpack-merge/-/webpack-merge-5.9.0.tgz}
     name: webpack-merge
-    version: 5.8.0
+    version: 5.9.0
     engines: {node: '>=10.0.0'}
     dependencies:
       clone-deep: registry.npmmirror.com/clone-deep@4.0.1

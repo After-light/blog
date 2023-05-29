@@ -1,9 +1,13 @@
 const proxy = require('./proxy.js');
 const path = require('path');
-const webpackConfig = require('./config/webpack.config.js');
+const { merge } = require('webpack-merge');
 
-module.exports = {
-  ...webpackConfig,
+const isDev = process.env.NODE_ENV === 'development';
+const webpackConfig = isDev
+  ? require('./config/webpack.config.dev.js')
+  : require('./config/webpack.config.prod');
+
+module.exports = merge(webpackConfig, {
   resolve: {
     alias: {
       '@@': path.resolve(__dirname, 'src/'),
@@ -15,8 +19,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   devServer: {
-    ...webpackConfig.devServer,
     proxy,
   },
   stats: 'errors-warnings',
-};
+});

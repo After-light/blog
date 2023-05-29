@@ -1,56 +1,25 @@
 const path = require('path');
+const webpack = require('webpack');
 const ESLintWebpackPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserWebpackPlugin = require('terser-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const cssLoaderIgnoreList = require('./cssLoaderIgnoreList');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+
+const createStyleLoaders = require('./createStyleLoaders');
 
 // 需要通过 cross-env 定义环境变量
-const isProduction = process.env.NODE_ENV === 'production';
-
-const getStyleLoaders = (preProcessor) => {
-  return [
-    isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-    {
-      loader: 'css-loader',
-      options: {
-        modules: {
-          auto: (resourcePath) => {
-            // resourcePath:绝对路径
-            return !cssLoaderIgnoreList.some((ignore) => resourcePath.includes(ignore));
-          },
-          localIdentName: '[local]_[hash:base64:10]',
-        },
-      },
-    },
-    {
-      loader: 'postcss-loader',
-      options: {
-        postcssOptions: {
-          plugins: [
-            'postcss-preset-env', // 能解决大多数样式兼容性问题
-          ],
-        },
-      },
-    },
-    preProcessor,
-  ].filter(Boolean);
-};
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: isProduction ? path.resolve(__dirname, '../dist') : undefined,
-    filename: isProduction ? 'static/js/[name].[contenthash:10].js' : 'static/js/[name].js',
-    chunkFilename: isProduction
-      ? 'static/js/[name].[contenthash:10].chunk.js'
-      : 'static/js/[name].chunk.js',
     publicPath: '/',
-    clean: true,
+    clean: {
+      keep: (asset) => {
+        return asset.includes('static/dll');
+      },
+    },
   },
   module: {
     rules: [
@@ -59,19 +28,19 @@ module.exports = {
           {
             test: /\.css$/,
             // use 数组里面 Loader 执行顺序是从右到左，从下到上
-            use: getStyleLoaders(),
+            use: createStyleLoaders(),
           },
           {
             test: /\.less$/,
-            use: getStyleLoaders('less-loader'),
+            use: createStyleLoaders('less-loader'),
           },
           {
             test: /\.s[ac]ss$/,
-            use: getStyleLoaders('sass-loader'),
+            use: createStyleLoaders('sass-loader'),
           },
           {
             test: /\.styl$/,
-            use: getStyleLoaders('stylus-loader'),
+            use: createStyleLoaders('stylus-loader'),
           },
           {
             test: /\.(png|jpe?g|gif|svg)$/,
@@ -96,7 +65,7 @@ module.exports = {
             options: {
               cacheDirectory: true, // 开启babel编译缓存
               cacheCompression: false, // 缓存文件不要压缩
-              plugins: [!isProduction && 'react-refresh/babel'].filter(Boolean),
+              plugins: [isDev && 'react-refresh/babel'].filter(Boolean),
             },
           },
         ],
@@ -104,6 +73,20 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DllReferencePlugin({
+      manifest: require(path.join(__dirname, '../dist/static/dll/vendor.manifest.json')),
+    }),
+    new webpack.DllReferencePlugin({
+      manifest: require(path.join(__dirname, '../dist/static/dll/highlight_js.manifest.json')),
+    }),
+    new webpack.DllReferencePlugin({
+      manifest: require(path.join(__dirname, '../dist/static/dll/rehype_katex.manifest.json')),
+    }),
+    new AddAssetHtmlPlugin([
+      { filepath: path.resolve(__dirname, '../dist/static/dll/vendor.dll.js') },
+      { filepath: path.resolve(__dirname, '../dist/static/dll/highlight_js.dll.js') },
+      { filepath: path.resolve(__dirname, '../dist/static/dll/rehype_katex.dll.js') },
+    ]),
     new ESLintWebpackPlugin({
       extensions: ['.js', '.jsx'],
       context: path.resolve(__dirname, '../src'),
@@ -119,34 +102,9 @@ module.exports = {
     new InterpolateHtmlPlugin({
       PUBLIC_URL: 'public',
     }),
-    isProduction &&
-      new MiniCssExtractPlugin({
-        filename: 'static/css/[name].[contenthash:10].css',
-        chunkFilename: 'static/css/[name].[contenthash:10].chunk.css',
-      }),
-    !isProduction && new ReactRefreshWebpackPlugin(),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
   ].filter(Boolean),
-  optimization: {
-    minimize: isProduction,
-    // 压缩的操作
-    minimizer: [
-      // 压缩css
-      new CssMinimizerPlugin(),
-      // 压缩js
-      new TerserWebpackPlugin(),
-    ],
-    // 代码分割配置
-    splitChunks: {
-      chunks: 'all',
-    },
-    runtimeChunk: {
-      name: (entrypoint) => `runtime~${entrypoint.name}`,
-    },
-  },
-  resolve: {
-    extensions: ['.jsx', '.js', '.json'],
-  },
+
   devServer: {
     open: true,
     host: 'localhost',
@@ -155,6 +113,4 @@ module.exports = {
     compress: true,
     historyApiFallback: true, // 解决路由路径刷新后404问题
   },
-  mode: isProduction ? 'production' : 'development',
-  devtool: isProduction ? 'source-map' : 'cheap-module-source-map',
 };
