@@ -1,7 +1,8 @@
 import React from 'react';
 import hljs from 'highlight.js';
+import classnames from 'classnames';
 
-import { createCopyEventCallback } from '@@share/js/utils';
+import { createCopyEventCallback, isUrl } from '@@share/js/utils';
 
 import styles from './index.less';
 
@@ -52,12 +53,35 @@ const renderHightLightCode = ({ inline, className, children }) => {
 
   return React.createElement(
     inline ? 'span' : 'pre',
-    { key: 'code', className: styles[inline ? 'codeInLine' : 'code'] },
+    { key: 'code', className: classnames(styles[inline ? 'codeInLine' : 'code'], 'scrollbar') },
     code
   );
 };
 
-export default {
+const renderImageHandle = (openImageModal) => {
+  let imageNumber = 0;
+
+  const renderImage = ({ src = '', title = '' }) => {
+    imageNumber++;
+    const imgUrl = isUrl(src) ? src : `/api/${src}`;
+    console.info(title);
+    const imageName = `图 ${title?.split('.')?.shift() || imageNumber}`;
+    return (
+      <>
+        <span
+          className={styles.image}
+          title={title}
+          style={{ backgroundImage: `url(${imgUrl})` }}
+          onClick={openImageModal({ imgUrl, imageName })}
+        />
+        <span className={styles.imageName}>{imageName}</span>
+      </>
+    );
+  };
+  return renderImage;
+};
+
+export default (openImageModal) => ({
   code: (nodeProps) => {
     return <>{[renderCopyButton(nodeProps), renderHightLightCode(nodeProps)]}</>;
   },
@@ -66,8 +90,5 @@ export default {
   h4: addId,
   h5: addId,
   h6: addId,
-  img: (nodeProps) => {
-    console.info(nodeProps);
-    return <img src="" />;
-  },
-};
+  img: renderImageHandle(openImageModal),
+});

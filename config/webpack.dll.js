@@ -2,22 +2,19 @@ const path = require('path');
 const webpack = require('webpack');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 
+const { DLL_ENTRY, DLL_DIRECTORY } = require('./constants');
+
 module.exports = {
-  entry: {
-    vendor: ['react', 'react-dom'],
-    highlight_js: ['highlight.js'],
-    rehype_katex: ['rehype-katex'],
-  },
+  entry: DLL_ENTRY,
   output: {
-    path: path.resolve(__dirname, '../dist/static/dll'),
+    path: DLL_DIRECTORY,
     filename: '[name].dll.js',
-    // 将 DLL 打包成一个库
-    library: '[name]_library',
+    library: '[name]_library', // 将 DLL 打包成一个库
   },
   plugins: [
     new webpack.DllPlugin({
       // 定义 DLL 的名称和路径
-      path: path.join(__dirname, '../dist/static/dll', '[name].manifest.json'),
+      path: path.join(DLL_DIRECTORY, '[name].manifest.json'),
       name: '[name]_library',
       entryOnly: true,
     }),

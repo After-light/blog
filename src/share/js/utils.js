@@ -35,3 +35,26 @@ export const createCopyEventCallback = (text) => (e) => {
     }
   });
 };
+
+export const isUrl = (str) => {
+  const pattern = /^(https?:\/\/){1}([\da-z.-]+)\.([a-z.]{2,6})([\/\w\W.-]*)*\/?$/;
+  return pattern.test(str);
+};
+
+export const downloadImageSync = (url, fileName) => {
+  return new Promise((resolve) => {
+    const download = (blob) => {
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      resolve();
+    };
+
+    fetch(url)
+      .then((response) => response.blob())
+      .then(download);
+  });
+};

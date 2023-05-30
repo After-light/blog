@@ -4,7 +4,6 @@ const ESLintWebpackPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 const createStyleLoaders = require('./createStyleLoaders');
 
@@ -15,11 +14,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     publicPath: '/',
-    clean: {
-      keep: (asset) => {
-        return asset.includes('static/dll');
-      },
-    },
+    clean: true,
   },
   module: {
     rules: [
@@ -73,20 +68,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.DllReferencePlugin({
-      manifest: require(path.join(__dirname, '../dist/static/dll/vendor.manifest.json')),
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: require(path.join(__dirname, '../dist/static/dll/highlight_js.manifest.json')),
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: require(path.join(__dirname, '../dist/static/dll/rehype_katex.manifest.json')),
-    }),
-    new AddAssetHtmlPlugin([
-      { filepath: path.resolve(__dirname, '../dist/static/dll/vendor.dll.js') },
-      { filepath: path.resolve(__dirname, '../dist/static/dll/highlight_js.dll.js') },
-      { filepath: path.resolve(__dirname, '../dist/static/dll/rehype_katex.dll.js') },
-    ]),
     new ESLintWebpackPlugin({
       extensions: ['.js', '.jsx'],
       context: path.resolve(__dirname, '../src'),
@@ -110,7 +91,14 @@ module.exports = {
     host: 'localhost',
     port: 3000,
     hot: true,
-    compress: true,
+    compress: true, // 开启Gzip传输
     historyApiFallback: true, // 解决路由路径刷新后404问题
+    client: {
+      overlay: {
+        // 当出现编译错误或警告时，是否浏览器中显示全屏覆盖
+        errors: true, // 错误覆盖
+        warnings: false, // 警告不覆盖
+      },
+    },
   },
 };

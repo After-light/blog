@@ -68,7 +68,6 @@ const getArticleStat = (articleName) => {
  */
 const getArticlesInfo = () => {
   // 获取所有文章
-
   const files = fs.readdirSync(_getArticlePath(), { withFileTypes: true });
 
   // 获取文章id字典

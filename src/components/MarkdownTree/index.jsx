@@ -7,6 +7,8 @@ import buildMarkdownTree from './buildMarkdownTree';
 
 import styles from './index.less';
 
+const ROOT_NODE_KEY = 1;
+
 function MarkdownTree({ title, content }) {
   const [markdownTree, setMarkdownTree] = useState([]);
 
@@ -20,8 +22,7 @@ function MarkdownTree({ title, content }) {
     <Tree
       className={classnames(styles.markdownTree, 'scrollbar')}
       treeData={buildTreeNode(markdownTree)}
-      autoExpandParent={true}
-      defaultExpandAll={true}
+      defaultExpandedKeys={[ROOT_NODE_KEY]}
     />
   ) : null;
 }

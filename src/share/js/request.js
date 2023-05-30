@@ -1,4 +1,3 @@
-const BASE_URL = 'http://localhost:8080';
 const DEFAULT_OPTIONS = {
   method: 'GET',
   headers: {
@@ -18,7 +17,7 @@ const getOptions = (options) => {
 
 const request = async (url, options) => {
   var fetchOptions = Object.assign({}, options);
-  var response = await fetch(`${BASE_URL}${url}`, getOptions(fetchOptions));
+  var response = await fetch(`${url}`, getOptions(fetchOptions));
   var { success, data, message } = await response.json();
 
   if (!success) {

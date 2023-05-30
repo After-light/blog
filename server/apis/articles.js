@@ -1,3 +1,4 @@
+const path = require('path');
 const { invert } = require('lodash');
 const { getArticlesInfo, getArticlesIdMap, getArticleDetail } = require('../utils');
 const { responentModel } = require('../models');
@@ -27,4 +28,15 @@ module.exports.getArticleById = (req, res) => {
   const fileContent = getArticleDetail(fileName);
 
   res.send({ ...responentModel, data: fileContent });
+};
+
+/**
+ * 获取文章图片
+ * @param {Object} request
+ * @param {Object} responent
+ */
+module.exports.getArticleImage = (req, res) => {
+  const { imageDir, image } = req.params;
+  const file = path.resolve(__dirname, '../data/image', imageDir, image);
+  res.sendFile(file);
 };
