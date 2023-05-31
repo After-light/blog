@@ -8,19 +8,11 @@
 
 ## 安装
 
-`pnpm i`
+`npm i`
 
 ## 启动
 
-`yarn start`
-
-## 替换文章
-
-文章路径：server\data
-
-1. 删除 data 文件夹下所有内容
-2. 添加文章（目前仅支持 markdown）
-3. 重启服务
+`npm run start`
 
 ## Markdown 支持功能
 
@@ -28,3 +20,4 @@
 - 代码行
 - 代码块（支持复制）
 - 标题导航
+- 图片原图查看和下载

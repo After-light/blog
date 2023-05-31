@@ -48,11 +48,9 @@ function Article() {
   };
 
   return (
-    <div className={classnames(styles.article, styles.markdownContainer)}>
-      <div className={styles.articleDetail}>
-        <h1 id={articleDetail.title?.trim()} className={styles.articleTitle}>
-          {articleDetail.title}
-        </h1>
+    <div className={styles.article}>
+      <div className={classnames(styles.articleDetail, styles.markdown)}>
+        <h1 id={articleDetail.title?.trim()}>{articleDetail.title}</h1>
         <ReactMarkdown
           children={articleDetail.content}
           components={renderers(openImageModal)}
