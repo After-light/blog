@@ -31,7 +31,6 @@ function ImageModal({ imgUrl, imageName, closeModal }) {
           下载
         </Button>
       </Tooltip>
-
       <Button onClick={closeModal}>取消</Button>
     </div>
   );

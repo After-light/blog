@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { theme } from 'antd';
 import { BgColorsOutlined } from '@ant-design/icons';
 
-import { changeTheme, getNextTheme } from '@@share/theme';
+import { changeTheme, getNextTheme } from '@@share/js/theme';
 
 import styles from './index.less';
 
@@ -17,6 +17,8 @@ function ThemeButton() {
       setBtnFillColor(token[getNextTheme()]);
     });
   };
+
+  console.info(btnFillColor);
 
   return (
     <div className={styles.themeButton} onClick={onChangeTheme}>

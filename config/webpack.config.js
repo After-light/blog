@@ -50,6 +50,14 @@ module.exports = {
             },
           },
           {
+            test: /\.(mp4)$/,
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'static/videos/',
+            },
+          },
+          {
             test: /\.(ttf|woff2?)$/,
             type: 'asset/resource',
           },

@@ -1,19 +1,22 @@
-import React from 'react';
-import RotationChart from '@@components/RotationChart';
-import ArticleList from '../ArticleList';
+import React, { useState } from 'react';
+import classNames from 'classnames';
 
-import charts from './charts';
+import VideoPlayer from '@@components/VideoPlayer';
+import coverVideo from '@@share/videos/cover.mp4';
+
+import ArticleList from '../ArticleList';
 
 import styles from './index.less';
 
 function HomePage() {
+  const [videoPlaying, setVideoPlaying] = useState(false);
+
   return (
     <div className={styles.homePage}>
-      <RotationChart charts={charts} />
-      <div className={styles.titleContainer}>
-        <h3 className={styles.title}>Persist in doing what is right.</h3>
-      </div>
-      <ArticleList />
+      <VideoPlayer src={coverVideo} playCallback={(playing) => setVideoPlaying(playing)} />
+      <main className={classNames(styles.main, { [styles.videoPlaying]: videoPlaying })}>
+        <ArticleList />
+      </main>
     </div>
   );
 }

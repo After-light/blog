@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import classnames from 'classnames';
+import { Divider } from 'antd';
 
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
@@ -58,6 +59,7 @@ function Article() {
           rehypePlugins={[rehypeKatex]}
         />
       </div>
+      <Divider className={styles.divider} type="vertical" />
       <div className={styles.markdownTreeContainer}>
         <MarkdownTree title={articleDetail.title} content={articleDetail.content} />
       </div>

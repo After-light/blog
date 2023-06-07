@@ -1,19 +1,9 @@
+@md-top: 5rem;
+
 .markdownTree {
   position: sticky;
-  top: 5rem;
-  max-height: 65vh;
+  top: @md-top;
+  max-height: calc(100vh - @md-top - 1rem);
   overflow-y: scroll;
-  padding: 0 1rem 1rem;
   background-color: transparent;
-  --scrollbar-width: 5px;
-}
-
-.title_h1 {
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.title_h2 {
-  font-size: 1rem;
-  font-weight: 520;
 }

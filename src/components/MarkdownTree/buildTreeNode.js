@@ -16,11 +16,7 @@ const buildTreeNode = (markdownTree) => {
       children = buildTreeNode(node.children);
     }
 
-    const title = (
-      <div className={styles[`title_h${node.level}`]} onClick={scrollToTarget(node.title)}>
-        {node.title}
-      </div>
-    );
+    const title = <div onClick={scrollToTarget(node.title)}>{node.title}</div>;
 
     return {
       ...node,
